@@ -269,7 +269,7 @@ bool check_agg_inverse(z3::solver& s,
   z3::func_decl f1 = function("f1", I, I);
 
   z3::expr conjection = forall(x1, x2, x3, agg(x1, x3) == agg(x1, agg(agg( x2, f1(x2)), x3)));
-  std::cout << conjection << std::endl;
+//  std::cout << conjection << std::endl;
   s.add(conjection);
   if(s.check() == z3::sat){
     return true;
@@ -286,7 +286,7 @@ bool check_singdep(z3::solver& s,
   z3::expr y = c.real_const("y");
 
   z3::expr conjecture = (forall(x, y, agg(x, y) == x || agg(x, y) == y));
-  std::cout << conjecture << std::endl;
+//  std::cout << conjecture << std::endl;
   s.add(!conjecture);
   if(s.check() == z3::unsat){
     return true;
