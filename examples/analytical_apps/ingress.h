@@ -272,7 +272,7 @@ bool check_agg_inverse(z3::solver& s,
   z3::func_decl f1 = function("f1", I, I);
 
   z3::expr conjection = forall(x1, x2, x3, agg(x1, x3) == agg(x1, agg(agg( x2, f1(x2)), x3)));
-//  std::cout << conjection << std::endl;
+  std::cout << conjection << std::endl;
   s.add(conjection);
   std::cout << s.check() << std::endl;
   if(s.check() == z3::sat){
