@@ -363,6 +363,7 @@ void IncCreateAndQuery(Engineer engineer, std::shared_ptr<APP_T>& app,
 }
 
 void RunIngress() {
+  std::cout << "start running ................." << std::endl;
   CommSpec comm_spec;
   comm_spec.Init(MPI_COMM_WORLD);
 
