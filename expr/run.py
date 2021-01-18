@@ -112,7 +112,7 @@ def run_graphbolt():
     fields = [name for name in dataset]
     fields.insert(0, "")
 
-    for app in ('PageRank', 'PHP', 'SSSP'):
+    for app in ('PageRank', 'PHP', 'SSSP', 'CC'):
         table = [["Batch(s)"], ["Inc(s)"], ["Mem(MB)"]]
         with open("graphbolt_" + app + ".csv", 'w') as csvfile:
             csvwriter = csv.writer(csvfile)

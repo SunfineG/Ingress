@@ -346,11 +346,13 @@ void IncCreateAndQuery(Engineer engineer, std::shared_ptr<APP_T>& app,
                       const std::string& out_prefix,
                       const ParallelEngineSpec& spec){
   if(engineer == Engineer::MF){
-    CreateAndQueryMF<FRAG_T, APP_T>(app, comm_spec, efile, vfile,
-                                         out_prefix, spec);
+    std::cout << "Run Memoization Free" << std::endl;
+//    CreateAndQueryMF<FRAG_T, APP_T>(app, comm_spec, efile, vfile,
+//                                         out_prefix, spec);
   }else if(engineer == Engineer::MP){
-    CreateAndQueryMP<FRAG_T, APP_T>(app, comm_spec, efile, vfile,
-                                    out_prefix, spec);
+    std::cout << "Run Memoization Path" << std::endl;
+//    CreateAndQueryMP<FRAG_T, APP_T>(app, comm_spec, efile, vfile,
+//                                    out_prefix, spec);
   }else if(engineer == Engineer::MV){
     std::cout << "Run Memoization Vertex" << std::endl;
   }else if(engineer == Engineer::ME){
