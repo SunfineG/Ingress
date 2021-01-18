@@ -346,11 +346,11 @@ void IncCreateAndQuery(Engineer engineer, std::shared_ptr<APP_T>& app,
                       const std::string& out_prefix,
                       const ParallelEngineSpec& spec){
   if(engineer == Engineer::MF){
-    VLOG(0) << "Run Memoization Free" << std::endl;
+    std::cout << "Run Memoization Free" << std::endl;
 //    CreateAndQueryMF<FRAG_T, APP_T>(app, comm_spec, efile, vfile,
 //                                         out_prefix, spec);
   }else if(engineer == Engineer::MP){
-    VLOG(0) << "Run Memoization Path";
+    std::cout << "Run Memoization Path" << std::endl;
 //    CreateAndQueryMP<FRAG_T, APP_T>(app, comm_spec, efile, vfile,
 //                                    out_prefix, spec);
   }else if(engineer == Engineer::MV){
@@ -455,9 +455,9 @@ void RunIngress() {
                                         grape::EmptyType,
                                         LoadStrategy::kOnlyOut>;
     using AppType = grape::GCN<GraphType>;
-    CreateAndQuery<GraphType, AppType>(comm_spec, efile, FLAGS_efile_update,
-                                       FLAGS_efile_updated, vfile, out_prefix,
-                                       spec, comm_spec, FLAGS_gcn_mr);
+//    CreateAndQuery<GraphType, AppType>(comm_spec, efile, FLAGS_efile_update,
+//                                       FLAGS_efile_updated, vfile, out_prefix,
+//                                       spec, comm_spec, FLAGS_gcn_mr);
   } else {
     LOG(INFO) << "No this application: " << name;
   }
