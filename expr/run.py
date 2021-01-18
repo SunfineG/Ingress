@@ -359,6 +359,7 @@ def run_autoinc(rerun: bool):
                         break
 
                     for line in autoinc_out.split('\n'):
+                        print(line)
                         match = re.match("^.*?Batch time: (.*?) sec$", line)
                         if match:
                             init_time_sum += float(match.groups()[0])
