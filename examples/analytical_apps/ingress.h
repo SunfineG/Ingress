@@ -355,8 +355,8 @@ void IncCreateAndQuery(Engineer engineer, std::shared_ptr<APP_T>& app,
                                          out_prefix, spec);
   }else if(engineer == Engineer::MP){
     std::cout << "Run Memoization Path" << std::endl;
-//    CreateAndQueryMP<FRAG_T, APP_T>(app, comm_spec, efile, vfile,
-//                                    out_prefix, spec);
+    CreateAndQueryMP<FRAG_T, APP_T>(app, comm_spec, efile, vfile,
+                                    out_prefix, spec);
   }else if(engineer == Engineer::MV){
     std::cout << "Run Memoization Vertex" << std::endl;
   }else if(engineer == Engineer::ME){

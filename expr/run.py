@@ -16,7 +16,7 @@ workers_num = "16"
 
 
 def get_dataset():
-    dataset = {'road_usa': 16651563,}
+    dataset = {'road_usa': 16651563}
                # 'europe_osm': 44499591,
                # 'uk-2005': 23311901,
                # 'twitter': 1037947}
