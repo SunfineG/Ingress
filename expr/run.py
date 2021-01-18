@@ -5,7 +5,7 @@ import re
 import csv
 
 graphbolt_prefix = "/mnt/data/nfs/graphbolt"
-tornado_prefix = "/mnt/data/nfs/AutoInc/build"
+tornado_prefix = "../build"
 dataset_prefix = "/mnt/data/nfs/dataset"
 serial_prefix = "/mnt/data/nfs/ser"
 

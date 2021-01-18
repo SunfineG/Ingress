@@ -24,7 +24,7 @@ limitations under the License.
 int main(int argc, char* argv[]) {
 
   std::cout << "perform ingress" << std::endl;
-  return 0;
+//  return 0;
 
   FLAGS_stderrthreshold = 0;
 
