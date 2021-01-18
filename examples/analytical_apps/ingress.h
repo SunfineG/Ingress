@@ -272,7 +272,7 @@ bool check_agg_inverse(z3::solver& s,
   z3::func_decl f1 = function("f1", I, I);
 
   z3::expr conjection = forall(x1, x2, x3, agg(x1, x3) == agg(x1, agg(agg( x2, f1(x2)), x3)));
-  std::cout << conjection << std::endl;
+//  std::cout << conjection << std::endl;
   s.add(conjection);
   std::cout << s.check() << std::endl;
   if(s.check() == z3::sat){
@@ -352,12 +352,12 @@ void IncCreateAndQuery(Engineer engineer, std::shared_ptr<APP_T>& app,
                       const ParallelEngineSpec& spec){
   if(engineer == Engineer::MF){
     std::cout << "Run Memoization Free" << std::endl;
-//    CreateAndQueryMF<FRAG_T, APP_T>(app, comm_spec, efile, vfile,
-//                                         out_prefix, spec);
+    CreateAndQueryMF<FRAG_T, APP_T>(app, comm_spec, efile, vfile,
+                                         out_prefix, spec);
   }else if(engineer == Engineer::MP){
     std::cout << "Run Memoization Path" << std::endl;
-//    CreateAndQueryMP<FRAG_T, APP_T>(app, comm_spec, efile, vfile,
-//                                    out_prefix, spec);
+    CreateAndQueryMP<FRAG_T, APP_T>(app, comm_spec, efile, vfile,
+                                    out_prefix, spec);
   }else if(engineer == Engineer::MV){
     std::cout << "Run Memoization Vertex" << std::endl;
   }else if(engineer == Engineer::ME){
