@@ -268,9 +268,9 @@ def run_autoinc(rerun: bool):
     fields = [name for name in dataset]
     fields.insert(0, "")
 
-    # for app in ('pagerank', 'php', 'cc', 'sssp', 'gcn'):
+    for app in ('pagerank', 'php', 'cc', 'sssp'):
     # for app in ('pagerank', 'php', 'sssp', 'gcn'):
-    for app in ('gcn',):
+    # for app in ('gcn',):
         if rerun:
             table = [["Batch(s)"], ["Mem(MB)"]]
         else:
