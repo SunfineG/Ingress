@@ -60,7 +60,7 @@ void Finalize() {
 }
 
 template <typename FRAG_T, typename APP_T>
-void CreateAndQueryTypeOne(std::shared_ptr<APP_T>& app,
+void CreateAndQueryMF(std::shared_ptr<APP_T>& app,
                            const CommSpec& comm_spec, const std::string efile,
                            const std::string& vfile,
                            const std::string& out_prefix,
@@ -101,7 +101,7 @@ void CreateAndQueryTypeOne(std::shared_ptr<APP_T>& app,
 }
 
 template <typename FRAG_T, typename APP_T>
-void CreateAndQueryTypeTwo(const CommSpec& comm_spec, const std::string efile,
+void CreateAndQueryMP(const CommSpec& comm_spec, const std::string efile,
                            const std::string& vfile,
                            const std::string& out_prefix,
                            const ParallelEngineSpec& spec) {
@@ -338,6 +338,27 @@ Engineer choose_engine(z3::solver& s, std::shared_ptr<APP_T>& app) {
   return Engineer::ME;
 }
 
+template <typename FRAG_T, typename APP_T>
+void IncCreateAndQuery(Engineer engineer, std::shared_ptr<APP_T>& app,
+                      const CommSpec& comm_spec, const std::string efile,
+                      const std::string& vfile,
+                      const std::string& out_prefix,
+                      const ParallelEngineSpec& spec){
+  if(engineer == Engineer::MF){
+    CreateAndQueryMF<FRAG_T, APP_T>(app, comm_spec, efile, vfile,
+                                         out_prefix, spec);
+  }else if(engineer == Engineer::MP){
+    CreateAndQueryMP<FRAG_T, APP_T>(app, comm_spec, efile, vfile,
+                                    out_prefix, spec);
+  }else if(engineer == Engineer::MV){
+    std::cout << "Run Memoization Vertex" << std::endl;
+  }else if(engineer == Engineer::ME){
+    std::cout << "Run Memoization Vertex" << std::endl;
+  }else{
+    std::cout << "no memoization engine" << std::endl;
+  }
+}
+
 void RunIngress() {
   CommSpec comm_spec;
   comm_spec.Init(MPI_COMM_WORLD);
@@ -371,9 +392,11 @@ void RunIngress() {
     using AppType = grape::PageRankIngress<GraphType, float>;
     auto app = std::make_shared<AppType>();
     // select engine automatically
+    Engineer engineer = choose_engine<AppType>(s, app);
+    IncCreateAndQuery<GraphType, AppType>(engineer, app, comm_spec, efile, vfile,
+                                          out_prefix, spec);
 
-    CreateAndQueryTypeOne<GraphType, AppType>(app, comm_spec, efile, vfile,
-                                              out_prefix, spec);
+
   } else if (name == "sssp") {
     using GraphType =
         grape::ImmutableEdgecutFragment<int32_t, uint32_t, grape::EmptyType,
@@ -383,8 +406,9 @@ void RunIngress() {
     auto app = std::make_shared<AppType>();
     // select engine automatically
 
-    CreateAndQueryTypeTwo<GraphType, AppType>(comm_spec, efile, vfile,
-                                              out_prefix, spec);
+    Engineer engineer = choose_engine<AppType>(s, app);
+    IncCreateAndQuery<GraphType, AppType>(engineer, app, comm_spec, efile, vfile,
+                                          out_prefix, spec);
   } else if (name == "cc") {
     using GraphType =
         grape::ImmutableEdgecutFragment<int32_t, uint32_t, grape::EmptyType,
@@ -395,8 +419,9 @@ void RunIngress() {
     auto app = std::make_shared<AppType>();
     // select engine automatically
 
-    CreateAndQueryTypeTwo<GraphType, AppType>(comm_spec, efile, vfile,
-                                              out_prefix, spec);
+    Engineer engineer = choose_engine<AppType>(s, app);
+    IncCreateAndQuery<GraphType, AppType>(engineer, app, comm_spec, efile, vfile,
+                                          out_prefix, spec);
   } else if (name == "php") {
     using GraphType = grape::ImmutableEdgecutFragment<int32_t, uint32_t,
                                                       grape::EmptyType, float>;
@@ -405,8 +430,12 @@ void RunIngress() {
     auto app = std::make_shared<AppType>();
     // select engine automatically
 
-    CreateAndQueryTypeOne<GraphType, AppType>(app, comm_spec, efile, vfile,
-                                              out_prefix, spec);
+    Engineer engineer = choose_engine<AppType>(s, app);
+    IncCreateAndQuery<GraphType, AppType>(engineer, app, comm_spec, efile, vfile,
+                                          out_prefix, spec);
+
+//    CreateAndQueryMF<GraphType, AppType>(app, comm_spec, efile, vfile,
+//                                              out_prefix, spec);
   } else if (name == "gcn") {
     using GraphType =
         grape::ImmutableEdgecutFragment<int32_t, uint32_t, grape::EmptyType,
