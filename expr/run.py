@@ -290,7 +290,8 @@ def run_autoinc(rerun: bool):
                     weighted = True
                 elif app == "cc":
                     directed = False
-                if name in ('road_usa', 'europe_osm', 'twitter'):
+                # if name in ('road_usa', 'europe_osm', 'twitter'):
+                if name in ('road_usa',):
                     cilk = "true"
                 vfile = get_vfile(name)
                 efile = get_base(name, False, weighted, directed)
