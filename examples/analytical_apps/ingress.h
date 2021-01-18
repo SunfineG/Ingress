@@ -101,7 +101,8 @@ void CreateAndQueryMF(std::shared_ptr<APP_T>& app,
 }
 
 template <typename FRAG_T, typename APP_T>
-void CreateAndQueryMP(const CommSpec& comm_spec, const std::string efile,
+void CreateAndQueryMP(std::shared_ptr<APP_T>& app,
+                            const CommSpec& comm_spec, const std::string efile,
                            const std::string& vfile,
                            const std::string& out_prefix,
                            const ParallelEngineSpec& spec) {
@@ -115,7 +116,7 @@ void CreateAndQueryMP(const CommSpec& comm_spec, const std::string efile,
   auto fragment =
       LoadGraph<FRAG_T, SegmentedPartitioner<typename FRAG_T::oid_t>>(
           efile, vfile, comm_spec, graph_spec);
-  auto app = std::make_shared<APP_T>();
+//  auto app = std::make_shared<APP_T>();
   timer_next("load application");
   if (comm_spec.worker_id() == grape::kCoordinatorRank) {
     LOG(INFO) << "第二类worker";
@@ -396,6 +397,8 @@ void RunIngress() {
     IncCreateAndQuery<GraphType, AppType>(engineer, app, comm_spec, efile, vfile,
                                           out_prefix, spec);
 
+//    CreateAndQueryMF<GraphType, AppType>(app, comm_spec, efile, vfile,
+//                                         out_prefix, spec);
 
   } else if (name == "sssp") {
     using GraphType =
@@ -409,6 +412,10 @@ void RunIngress() {
     Engineer engineer = choose_engine<AppType>(s, app);
     IncCreateAndQuery<GraphType, AppType>(engineer, app, comm_spec, efile, vfile,
                                           out_prefix, spec);
+
+//    CreateAndQueryMP<GraphType, AppType>(app, comm_spec, efile, vfile,
+//                                         out_prefix, spec);
+
   } else if (name == "cc") {
     using GraphType =
         grape::ImmutableEdgecutFragment<int32_t, uint32_t, grape::EmptyType,
@@ -422,6 +429,10 @@ void RunIngress() {
     Engineer engineer = choose_engine<AppType>(s, app);
     IncCreateAndQuery<GraphType, AppType>(engineer, app, comm_spec, efile, vfile,
                                           out_prefix, spec);
+
+//    CreateAndQueryMP<GraphType, AppType>(app, comm_spec, efile, vfile,
+//                                              out_prefix, spec);
+
   } else if (name == "php") {
     using GraphType = grape::ImmutableEdgecutFragment<int32_t, uint32_t,
                                                       grape::EmptyType, float>;

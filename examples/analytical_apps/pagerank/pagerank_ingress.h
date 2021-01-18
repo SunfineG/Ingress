@@ -23,6 +23,9 @@ class PageRankIngress : public IterateKernel<FRAG_T, VALUE_T> {
     delta = 0.15f / frag.GetTotalVerticesNum();
   }
 
+  void init_c(const FRAG_T& frag, const vertex_t v, value_t& delta,
+              DenseVertexSet<vid_t>& modified) override {}
+
   void init_v(const vertex_t v, value_t& value) override { value = 0.0f; }
 
   bool aggregate(value_t& a, value_t b) override {
@@ -81,6 +84,13 @@ class PageRankIngress : public IterateKernel<FRAG_T, VALUE_T> {
         this->accumulate_to(dst, outv);
       }
     }
+  }
+
+  void g_function(const FRAG_T& frag, const vertex_t v,
+                  const value_t& value, const value_t& delta,
+                  const adj_list_t& oes,
+                  DenseVertexSet<vid_t>& modified) override {
+
   }
 
   value_t default_v() override { return 0; }

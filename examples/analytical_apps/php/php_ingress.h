@@ -53,6 +53,9 @@ class PHPIngress : public IterateKernel<FRAG_T, VALUE_T> {
       delta = 0;
     }
   }
+  void init_c(const FRAG_T& frag, const vertex_t v, value_t& delta,
+              DenseVertexSet<vid_t>& modified) override {}
+
 
   void init_v(const vertex_t v, value_t& value) override { value = 0.0f; }
 
@@ -109,6 +112,13 @@ class PHPIngress : public IterateKernel<FRAG_T, VALUE_T> {
         }
       })
     }
+  }
+
+  void g_function(const FRAG_T& frag, const vertex_t v,
+                  const value_t& value, const value_t& delta,
+                  const adj_list_t& oes,
+                  DenseVertexSet<vid_t>& modified) override {
+
   }
 
   value_t default_v() override { return 0; }

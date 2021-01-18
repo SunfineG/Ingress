@@ -61,6 +61,10 @@ class SSSPIngress : public IterateKernel<FRAG_T, VALUE_T> {
   }
 
   void g_function(const FRAG_T& frag, const vertex_t v, const value_t& value,
+                  const value_t& delta, const adj_list_t& oes) override {
+  }
+
+  void g_function(const FRAG_T& frag, const vertex_t v, const value_t& value,
                   const value_t& delta, const adj_list_t& oes,
                   DenseVertexSet<vid_t>& modified) override {
     if (delta != imax) {
