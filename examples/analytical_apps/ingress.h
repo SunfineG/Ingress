@@ -226,6 +226,7 @@ bool check_commutative(z3::solver& s,
                        const std::function<z3::expr(z3::expr, z3::expr)>& agg) {
 
   z3::context& c = s.ctx();
+  s.reset();
   z3::expr x1 = c.real_const("x1");
   z3::expr x2 = c.real_const("x2");
 
@@ -243,6 +244,7 @@ bool check_commutative(z3::solver& s,
 bool check_associative(z3::solver& s,
                      const std::function<z3::expr(z3::expr, z3::expr)>& agg) {
   z3::context& c = s.ctx();
+  s.reset();
   z3::expr x1 = c.real_const("x1");
   z3::expr x2 = c.real_const("x2");
   z3::expr x3 = c.real_const("x3");
@@ -262,6 +264,7 @@ bool check_agg_inverse(z3::solver& s,
                        const std::function<z3::expr(z3::expr, z3::expr)>& agg){
 
   z3::context &c = s.ctx();
+  s.reset();
   z3::expr x1 = c.real_const("x1");
   z3::expr x2 = c.real_const("x2");
   z3::expr x3 = c.real_const("x3");
@@ -271,6 +274,7 @@ bool check_agg_inverse(z3::solver& s,
   z3::expr conjection = forall(x1, x2, x3, agg(x1, x3) == agg(x1, agg(agg( x2, f1(x2)), x3)));
 //  std::cout << conjection << std::endl;
   s.add(conjection);
+  std::cout << s.check() << std::endl;
   if(s.check() == z3::sat){
     return true;
   }else{
@@ -282,6 +286,7 @@ bool check_singdep(z3::solver& s,
                    const std::function<z3::expr(z3::expr, z3::expr)>& agg){
 
   z3::context& c = s.ctx();
+  s.reset();
   z3::expr x = c.real_const("x");
   z3::expr y = c.real_const("y");
 
