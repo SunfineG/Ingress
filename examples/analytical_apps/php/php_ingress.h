@@ -89,7 +89,7 @@ class PHPIngress : public IterateKernel<FRAG_T, VALUE_T> {
   }
 
   z3::expr generate_z3(z3::solver& s, z3::expr x){
-    z3::expr d = s.ctx().real_val("0.8");
+    z3::expr d = s.ctx().real_val("0.85");
     z3::expr w = s.ctx().real_const("w");
     s.add(w > 0);
     z3::expr val = x * d * w;

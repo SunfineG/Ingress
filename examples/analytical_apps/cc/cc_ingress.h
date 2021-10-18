@@ -42,7 +42,7 @@ class CCIngress : public IterateKernel<FRAG_T, VALUE_T> {
   }
 
   value_t generate(value_t v, value_t m, value_t w) override {
-    return m * 0.85 * w;
+    return v;
   }
 
   z3::expr generate_z3(z3::solver& s, z3::expr x) override {
